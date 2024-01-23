@@ -28,7 +28,8 @@ def get_info(text):
 def format_text(text):
     text=text.replace('%date','Дата записи:',-1)
     text=re.sub(r'^%title ',r'# ',text)
-    text=re.sub(r'\[\[(.*)\]\]',r'\n=> \1\n',text)
+    text=re.sub(r'\[\[(.*-[0-9]*)-.*\|.*\]\]',r'\n=> \1.gmi\n',text)
+    text=re.sub(r'<a href="(.*)">.*</a>',r'\n=> \1\n',text)
     return text
 
 def vimwiki2gemini(in_data, path):
