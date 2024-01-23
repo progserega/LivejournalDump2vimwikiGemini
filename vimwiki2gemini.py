@@ -28,7 +28,10 @@ def get_info(text):
 def format_text(text):
     text=text.replace('%date','Дата записи:',-1)
     text=re.sub(r'^%title ',r'# ',text)
+    # локальные ссылки на gemini:
     text=re.sub(r'\[\[(.*-[0-9]*)-.*\|.*\]\]',r'\n=> \1.gmi\n',text)
+    # обычные ссылки:
+    text=re.sub(r'\[\[(.*)\]\]',r'\n=> \1\n',text)
     text=re.sub(r'<a href="(.*)">.*</a>',r'\n=> \1\n',text)
     return text
 
