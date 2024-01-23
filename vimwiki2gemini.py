@@ -42,6 +42,17 @@ def vimwiki2gemini(in_data, path):
     f.write(text)
     f.write("\n=> ../index.gmi 🔙 вернуться к началу... ")
     f.close()
+    # дописываем ссылку в файл индекса:
+    file_name=path+'/index.gmi'
+    print("append to index file: %s"%file_name)
+    f = open(file_name, mode="a", encoding="utf-8")
+    append_text="\n=>glog/%(datetime_file_name)s.gmi %(datetime)s %(title)s"%{\
+            "datetime_file_name":datetime.fromtimestamp(info["timestamp"]).strftime('%Y.%m.%d-%H%M'),\
+            "datetime":datetime.fromtimestamp(info["timestamp"]).strftime('%Y.%m.%d-%H:%M'),\
+            "title":info["title"]\
+            }
+    f.write(append_text)
+    f.close()
 
 if len(sys.argv) < 3:
 	print("Необходимо два параметра: имя входного файла, путь, куда сохранять получаемые файлы")
